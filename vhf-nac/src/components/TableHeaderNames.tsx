@@ -1,0 +1,17 @@
+export const TableHeaderNames: string[] = [
+  "",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+  "9 Month Score",
+  "Total",
+];
