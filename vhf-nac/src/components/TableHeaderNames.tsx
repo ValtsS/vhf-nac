@@ -12,6 +12,6 @@ export const TableHeaderNames: string[] = [
   "Oct",
   "Nov",
   "Dec",
-  "9 Month Score",
+  "9 Best Months Score",
   "Total",
 ];

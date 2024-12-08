@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { QsoRecord } from "../core/resultsDefinition";
 import { QSOTableHeaderNames } from "./QSOTableHeaderNames";
 
@@ -26,10 +27,14 @@ export const QSOLog = (props: QSOLogProps) => {
         </thead>
         <tbody>
           {log.map((o: QsoRecord) => (
-            <tr>
+            <tr key={`${o.UTC}.${o.Corresp}`}>
               <td>{o.UTC}</td>
               <td>
-                <a href={`${o.Band}.${props.year}.${props.month}.${o.Corresp}`}>{o.Corresp}</a>
+                <Link
+                  to={`/details/${encodeURIComponent(`${o.Band}.${props.year}.${props.month}.${o.Corresp}`)}`}
+                >
+                  {o.Corresp}
+                </Link>
               </td>
               <td>{o.Mode}</td>
               <td>{o.Sent}</td>

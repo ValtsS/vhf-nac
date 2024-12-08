@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import "./App.css";
 import { ErrorPage } from "./routes/error-page";
 
@@ -34,14 +34,14 @@ class App extends React.Component<AppProps, AppState> {
     if (this.state.hasError) {
       return (
         <>
-          <BrowserRouter>
+          <HashRouter>
             <ErrorPage error={this.state.error} />
-          </BrowserRouter>
+          </HashRouter>
         </>
       );
     }
 
-    return <BrowserRouter>{this.props.children}</BrowserRouter>;
+    return <HashRouter>{this.props.children}</HashRouter>;
   }
 }
 

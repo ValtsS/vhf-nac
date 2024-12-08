@@ -38,7 +38,7 @@ export class DataStore {
     if (loaded) return this.Details[Year][key] ?? [];
 
     try {
-      this.Details[Year] = (await getDetails(`../${Year}.json`)).QSOs;
+      this.Details[Year] = (await getDetails(`${Year}.json`)).QSOs;
       return this.Details[Year][key] ?? [];
     } catch (err) {
       // Handle any unexpected errors

@@ -20,7 +20,7 @@ export const DetailsPage = () => {
       parseInt(band),
       callSign,
     );
-  }, [store]);
+  }, [store, id]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -29,7 +29,7 @@ export const DetailsPage = () => {
     <div>
       <h4>Band: {band} MHz</h4>
       <h4>Callsign: {callSign}</h4>
-      <QSOLog log={data} year={year} month={month}/>
+      <QSOLog log={data} year={year} month={month} />
     </div>
   );
 };

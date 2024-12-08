@@ -16,7 +16,9 @@ body {
 }
 
 /* Heading Styling */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: #222; /* Slightly darker than body text for contrast */
   text-align: center; /* Center headings for simplicity */
   margin-bottom: 1rem;
@@ -57,6 +59,18 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Highlight <td> when the link inside is hovered */
+td:has(a:hover) {
+  background-color: #f5f5f5; /* Light grayish highlight on <td> */
+  cursor: pointer; /* Pointer cursor for user interaction */
+}
+
+/* Optional: Hover effect for the <a> itself */
+td a:hover {
+  color: #007bff; /* Change the link color to blue on hover */
+  text-decoration: underline; /* Optionally underline the link */
+}
+
 /* Dropdown Styling */
 select {
   font-size: 1rem;
@@ -73,7 +87,8 @@ select {
     font-size: 14px; /* Adjust font size for smaller screens */
   }
 
-  table th, table td {
+  table th,
+  table td {
     padding: 0.5rem;
     font-size: 0.9rem; /* Slightly smaller for mobile */
   }
