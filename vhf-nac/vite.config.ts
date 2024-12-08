@@ -5,4 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "./",
+  build: {
+    target: 'es2015', // Target ES5 to ensure compatibility with older browsers
+  }
 });

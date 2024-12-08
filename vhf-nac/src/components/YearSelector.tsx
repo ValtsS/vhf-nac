@@ -13,11 +13,14 @@ export const YearSelector = (props: YearSelectorProps) => {
   return (
     <div>
       <select name="yearSelector" onChange={onAddrChange}>
-        {props.data.Years.toSorted((a, b) => b.Year - a.Year).map((val) => (
-          <option value={val.Year} key={"Sel" + val.Year}>
-            {val.Year}
-          </option>
-        ))}
+      {props.data.Years
+          .slice() // Create a shallow copy to avoid mutating the original array
+          .sort((a, b) => b.Year - a.Year) // Sort in descending order
+          .map((val) => (
+            <option value={val.Year} key={"Sel" + val.Year}>
+              {val.Year}
+            </option>
+          ))}
       </select>
     </div>
   );
