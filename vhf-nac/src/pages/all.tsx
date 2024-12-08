@@ -26,12 +26,7 @@ function All() {
   return (
     <div>
       <h1>NAC</h1>
-      {data && (
-        <YearSelector
-          data={data as ResultsStructure}
-          onChanged={yearSelected}
-        />
-      )}
+      {data && <YearSelector data={data} onChanged={yearSelected} />}
       {data && (
         <DataDisplay
           yearResult={(data as ResultsStructure)?.Years.find(

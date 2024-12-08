@@ -1,5 +1,4 @@
-export interface MonthlyScore
-{
+export interface MonthlyScore {
   Score: number;
   Link?: string;
 }

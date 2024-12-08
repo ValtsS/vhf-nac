@@ -27,13 +27,9 @@ export const DetailsPage = () => {
 
   return (
     <div>
-      <p>Band: {band} MHz</p>
-      <p>Callsign: {callSign}</p>
-      <p>
-        {year}.{+month < 10 ? "0" + month : month}
-      </p>
-
-      <>{data && QSOLog(data)}</>
+      <h4>Band: {band} MHz</h4>
+      <h4>Callsign: {callSign}</h4>
+      <QSOLog log={data} year={year} month={month}/>
     </div>
   );
 };

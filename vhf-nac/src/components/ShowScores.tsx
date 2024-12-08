@@ -6,20 +6,20 @@ interface ShowScoreProps {
   showHeaders?: boolean;
 }
 
-interface OlinkProps
-{
-  score: number; link?: string;
+interface OlinkProps {
+  score: number;
+  link?: string;
 }
 
-export const Olink = ( props:OlinkProps ) =>
-{
+export const Olink = (props: OlinkProps) => {
   if (props.score === undefined || (props.score == 0 && !props.link))
     return <></>;
   if (props.link)
-    return <a href={`details/${encodeURIComponent(props.link)}`}>{props.score}</a>;
-  else
-    return <>{props.score}</>;
-}
+    return (
+      <a href={`details/${encodeURIComponent(props.link)}`}>{props.score}</a>
+    );
+  else return <>{props.score}</>;
+};
 
 export const ShowScores = (props: ShowScoreProps) => {
   return (
@@ -38,7 +38,9 @@ export const ShowScores = (props: ShowScoreProps) => {
           <tr key={o.OperatorName}>
             <td>{o.OperatorName}</td>
             {o.Scores.map((n, i) => (
-              <td key={i}><Olink link={n.Link} score={n.Score} /></td>
+              <td key={i}>
+                <Olink link={n.Link} score={n.Score} />
+              </td>
             ))}
           </tr>
         ))}
