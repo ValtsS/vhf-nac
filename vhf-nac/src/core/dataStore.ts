@@ -12,7 +12,7 @@ export class DataStore {
     if (this.Totals) return this.Totals;
 
     try {
-      this.Totals = await getSummary("results.json");
+      this.Totals = await getSummary("results.lz4");
       return this.Totals;
     } catch (err) {
       // Handle any unexpected errors
@@ -38,7 +38,7 @@ export class DataStore {
     if (loaded) return this.Details[Year][key] ?? [];
 
     try {
-      this.Details[Year] = (await getDetails(`${Year}.json`)).QSOs;
+      this.Details[Year] = (await getDetails(`${Year}.lz4`)).QSOs;
       return this.Details[Year][key] ?? [];
     } catch (err) {
       // Handle any unexpected errors
