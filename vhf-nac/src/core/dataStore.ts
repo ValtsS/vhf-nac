@@ -7,12 +7,17 @@ import {
 
 export class DataStore {
   private Totals: ResultsStructure | null = null;
+  public NewestYear?: number;
 
   async getTotals(): Promise<ResultsStructure> {
     if (this.Totals) return this.Totals;
 
     try {
       this.Totals = await getSummary("results.lz4");
+      this.NewestYear = this.Totals.Years.reduce(
+        (max, x) => (x.Year > max ? x.Year : max),
+        -Infinity,
+      );
       return this.Totals;
     } catch (err) {
       // Handle any unexpected errors

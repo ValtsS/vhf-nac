@@ -7,18 +7,20 @@ import { useFetch } from "../hooks/useFetch";
 import { useAppContext } from "../providers/AppContextProvider";
 
 function All() {
-  const [year, setYear] = useState<number>(2024);
+  const { store } = useAppContext();
+
+  const [year, setYear] = useState<number | undefined>();
+
+  const { data, loading, error } = useFetch<ResultsStructure>(async () => {
+    if (!store) throw new Error("Results data is unavailable");
+    const totals = await store.getTotals();
+    setYear(store.NewestYear);
+    return totals;
+  }, [store]);
 
   const yearSelected = (year: number) => {
     setYear(year);
   };
-
-  const { store } = useAppContext();
-
-  const { data, loading, error } = useFetch<ResultsStructure>(async () => {
-    if (!store) throw new Error("Results data is unavailable");
-    return await store.getTotals();
-  }, [store]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

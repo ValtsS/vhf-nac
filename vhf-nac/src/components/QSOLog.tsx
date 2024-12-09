@@ -12,11 +12,14 @@ export const QSOLog = (props: QSOLogProps) => {
   const log = props.log;
   if (!log || log.length == 0) return <>No log entries found</>;
 
+  const opLoc = log[0].nWWLoc;
+
   return (
     <>
       <h4>
         {props.year}.{+props.month < 10 ? "0" + props.month : props.month}
       </h4>
+      <p>QTH: {opLoc}</p>
       <table>
         <thead>
           <tr>

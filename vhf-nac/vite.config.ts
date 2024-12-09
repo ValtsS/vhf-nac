@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: "./",
   build: {
-    target: 'es2015', // Target ES5 to ensure compatibility with older browsers
-  }
+    target: "es2015", // Target ES5 to ensure compatibility with older browsers
+  },
 });
