@@ -6,7 +6,6 @@ function DataDisplay({ yearResult }: Readonly<{ yearResult?: YearResult }>) {
     <div>
       {yearResult && (
         <div key={yearResult.Year}>
-          <h3>{yearResult.Year}</h3>
           {yearResult.results.map((band) => (
             <BandResults data={band} key={band.Band} />
           ))}

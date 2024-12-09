@@ -1,55 +1,90 @@
 import { Link } from "react-router-dom";
 import { QsoRecord } from "../core/resultsDefinition";
 import { QSOTableHeaderNames } from "./QSOTableHeaderNames";
+import { NavMonthLink } from "./NavMonthLink";
 
 interface QSOLogProps {
   log?: QsoRecord[] | null;
   year: string;
   month: string;
+  band: string;
+  callSign: string;
 }
+
+
 
 export const QSOLog = (props: QSOLogProps) => {
   const log = props.log;
-  if (!log || log.length == 0) return <>No log entries found</>;
 
-  const opLoc = log[0].nWWLoc;
+  const numericYear = +props.year;
+  const numericMonth = +props.month;
+
+  const formattedMonth = numericMonth < 10 ? `0${numericMonth}` : `${numericMonth}`;
 
   return (
     <>
+      <h4>Band: {props.band} MHz</h4>
+      <h4>Callsign: {props.callSign}</h4>
+
       <h4>
-        {props.year}.{+props.month < 10 ? "0" + props.month : props.month}
+      <NavMonthLink
+          year={numericYear}
+          month={numericMonth}
+          band={props.band}
+          callSign={props.callSign}
+          minYear={numericYear}
+          maxYear={numericYear}
+          direction="prev"
+        />
+        {`${props.year}.${formattedMonth}`}
+        <NavMonthLink
+          year={numericYear}
+          month={numericMonth}
+          band={props.band}
+          callSign={props.callSign}
+          minYear={numericYear}
+          maxYear={numericYear}
+          direction="next"
+        />
       </h4>
-      <p>QTH: {opLoc}</p>
-      <table>
-        <thead>
-          <tr>
-            {QSOTableHeaderNames.map((text, i) => (
-              <th key={i + text}>{text}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {log.map((o: QsoRecord) => (
-            <tr key={`${o.UTC}.${o.Corresp}`}>
-              <td>{o.UTC}</td>
-              <td>
-                <Link
-                  to={`/details/${encodeURIComponent(`${o.Band}.${props.year}.${props.month}.${o.Corresp}`)}`}
-                >
-                  {o.Corresp}
-                </Link>
-              </td>
-              <td>{o.Mode}</td>
-              <td>{o.Sent}</td>
-              <td>{o.Recvd}</td>
-              <td>{o.nWWLoc}</td>
-              <td>{o.Pnt}</td>
-              <td>{o.QRB}</td>
-              <td>{o.Remark}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      {(!log || log.length == 0) && <>No log entries found</>}
+
+      {log && log.length > 0 && (
+        <>
+          <p>QTH: {log[0].WWLoc}</p>
+          <table>
+            <thead>
+              <tr>
+                {QSOTableHeaderNames.map((text, i) => (
+                  <th key={i + text}>{text}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {log.map((o: QsoRecord) => (
+                <tr key={`${o.UTC}.${o.Corresp}`}>
+                  <td>{o.UTC}</td>
+                  <td>
+                    <Link
+                      to={`/details/${encodeURIComponent(`${o.Band}.${props.year}.${props.month}.${o.Corresp}`)}`}
+                    >
+                      {o.Corresp}
+                    </Link>
+                  </td>
+                  <td>{o.Mode}</td>
+                  <td>{o.Sent}</td>
+                  <td>{o.Recvd}</td>
+                  <td>{o.nWWLoc}</td>
+                  <td>{o.Pnt}</td>
+                  <td>{o.QRB}</td>
+                  <td>{o.Remark}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </>
   );
 };

@@ -8,6 +8,7 @@ import {
 export class DataStore {
   private Totals: ResultsStructure | null = null;
   public NewestYear?: number;
+  public OldestYear?: number;
 
   async getTotals(): Promise<ResultsStructure> {
     if (this.Totals) return this.Totals;
@@ -17,6 +18,10 @@ export class DataStore {
       this.NewestYear = this.Totals.Years.reduce(
         (max, x) => (x.Year > max ? x.Year : max),
         -Infinity,
+      );
+      this.OldestYear = this.Totals.Years.reduce(
+        (max, x) => (x.Year < max ? x.Year : max),
+        Infinity,
       );
       return this.Totals;
     } catch (err) {
