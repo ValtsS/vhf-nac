@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { QsoRecord } from "../core/resultsDefinition";
 import { useFetch } from "../hooks/useFetch";
-import { useAppContext } from "../providers/AppContextProvider";
 import { QSOLog } from "../components/QSOLog";
+import { useAppContext } from "../providers/AppUseContext";
 
 export const DetailsPage = () => {
   // Get the dynamic parameter from the URL
@@ -33,8 +33,6 @@ export const DetailsPage = () => {
         month={month}
         band={band}
         callSign={callSign}
-        maxYear={store?.NewestYear ?? 2024}
-        minYear={store?.OldestYear ?? 2024}
       />
     </div>
   );

@@ -8,7 +8,7 @@ interface UseFetchResult<T> {
 
 export const useFetch = <T>(
   fetchFunction: () => Promise<T>,
-  dependencies: any[] = [],
+  dependencies: React.DependencyList,
 ): UseFetchResult<T> => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export const useFetch = <T>(
     };
 
     fetchData();
-  }, dependencies);
+  }, [fetchFunction, dependencies]);
 
   return { data, loading, error };
 };

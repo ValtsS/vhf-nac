@@ -11,15 +11,14 @@ interface QSOLogProps {
   callSign: string;
 }
 
-
-
 export const QSOLog = (props: QSOLogProps) => {
   const log = props.log;
 
   const numericYear = +props.year;
   const numericMonth = +props.month;
 
-  const formattedMonth = numericMonth < 10 ? `0${numericMonth}` : `${numericMonth}`;
+  const formattedMonth =
+    numericMonth < 10 ? `0${numericMonth}` : `${numericMonth}`;
 
   return (
     <>
@@ -27,7 +26,7 @@ export const QSOLog = (props: QSOLogProps) => {
       <h4>Callsign: {props.callSign}</h4>
 
       <h4>
-      <NavMonthLink
+        <NavMonthLink
           year={numericYear}
           month={numericMonth}
           band={props.band}

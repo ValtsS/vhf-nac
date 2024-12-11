@@ -4,7 +4,7 @@ import DataDisplay from "../components/DataDisplay";
 import YearSelector from "../components/YearSelector";
 import { ResultsStructure } from "../core/resultsDefinition";
 import { useFetch } from "../hooks/useFetch";
-import { useAppContext } from "../providers/AppContextProvider";
+import { useAppContext } from "../providers/AppUseContext";
 
 function All() {
   const { store } = useAppContext();
@@ -14,9 +14,11 @@ function All() {
   const { data, loading, error } = useFetch<ResultsStructure>(async () => {
     if (!store) throw new Error("Results data is unavailable");
     const totals = await store.getTotals();
-    setYear(store.NewestYear);
     return totals;
   }, [store]);
+
+  // Set the initial year inline after fetching
+  const effectiveYear = year ?? store?.NewestYear;
 
   const yearSelected = (year: number) => {
     setYear(year);
@@ -25,6 +27,8 @@ function All() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+  console.log("year", year);
+
   return (
     <div>
       <h1>NAC</h1>
@@ -32,7 +36,7 @@ function All() {
       {data && (
         <DataDisplay
           yearResult={(data as ResultsStructure)?.Years.find(
-            (y) => y.Year == year,
+            (y) => y.Year == effectiveYear,
           )}
         />
       )}
