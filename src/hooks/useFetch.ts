@@ -13,7 +13,7 @@ export const useFetch = <T>(
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -29,7 +29,7 @@ export const useFetch = <T>(
     };
 
     fetchData();
-  }, [fetchFunction, dependencies]);
+  }, [fetchFunction, ...dependencies]);
 
   return { data, loading, error };
 };

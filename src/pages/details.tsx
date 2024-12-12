@@ -3,6 +3,7 @@ import { QsoRecord } from "../core/resultsDefinition";
 import { useFetch } from "../hooks/useFetch";
 import { QSOLog } from "../components/QSOLog";
 import { useAppContext } from "../providers/AppUseContext";
+import { useCallback } from "react";
 
 export const DetailsPage = () => {
   // Get the dynamic parameter from the URL
@@ -12,7 +13,7 @@ export const DetailsPage = () => {
   const query = id ? decodeURIComponent(id) : "Unknown";
   const [band, year, month, callSign] = query.split(".");
 
-  const { data, loading, error } = useFetch<QsoRecord[]>(async () => {
+  const fetchDetails = useCallback(async () => {
     if (!store) throw new Error("Results data is unavailable");
     return await store.GetDetails(
       parseInt(year),
@@ -20,7 +21,16 @@ export const DetailsPage = () => {
       parseInt(band),
       callSign,
     );
-  }, [store, id]);
+  }, [store, year, month, band, callSign]);
+
+  const { data, loading, error } = useFetch<QsoRecord[]>(fetchDetails, [
+    fetchDetails,
+    store,
+    year,
+    month,
+    band,
+    callSign,
+  ]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

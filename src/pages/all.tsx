@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "../App.css";
 import DataDisplay from "../components/DataDisplay";
 import YearSelector from "../components/YearSelector";
@@ -9,13 +9,18 @@ import { useAppContext } from "../providers/AppUseContext";
 function All() {
   const { store } = useAppContext();
 
-  const [year, setYear] = useState<number | undefined>();
+  const [year, setYear] = useState<number | undefined>(undefined);
 
-  const { data, loading, error } = useFetch<ResultsStructure>(async () => {
+  const fetchTotals = useCallback(async () => {
     if (!store) throw new Error("Results data is unavailable");
     const totals = await store.getTotals();
     return totals;
   }, [store]);
+
+  const { data, loading, error } = useFetch<ResultsStructure>(fetchTotals, [
+    fetchTotals,
+    store,
+  ]);
 
   // Set the initial year inline after fetching
   const effectiveYear = year ?? store?.NewestYear;
@@ -26,8 +31,6 @@ function All() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
-  console.log("year", year);
 
   return (
     <div>
