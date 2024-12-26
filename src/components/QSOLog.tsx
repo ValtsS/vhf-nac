@@ -26,25 +26,29 @@ export const QSOLog = (props: QSOLogProps) => {
       <h4>Callsign: {props.callSign}</h4>
 
       <h4>
-        <NavMonthLink
-          year={numericYear}
-          month={numericMonth}
-          band={props.band}
-          callSign={props.callSign}
-          minYear={numericYear}
-          maxYear={numericYear}
-          direction="prev"
-        />
+        <span className="nav-link">
+          <NavMonthLink
+            year={numericYear}
+            month={numericMonth}
+            band={props.band}
+            callSign={props.callSign}
+            minYear={numericYear}
+            maxYear={numericYear}
+            direction="prev"
+          />
+        </span>
         {`${props.year}.${formattedMonth}`}
-        <NavMonthLink
-          year={numericYear}
-          month={numericMonth}
-          band={props.band}
-          callSign={props.callSign}
-          minYear={numericYear}
-          maxYear={numericYear}
-          direction="next"
-        />
+        <span className="nav-link">
+          <NavMonthLink
+            year={numericYear}
+            month={numericMonth}
+            band={props.band}
+            callSign={props.callSign}
+            minYear={numericYear}
+            maxYear={numericYear}
+            direction="next"
+          />
+        </span>
       </h4>
 
       {(!log || log.length == 0) && <>No log entries found</>}
