@@ -2,6 +2,7 @@ import { ResultsStructure } from "../core/resultsDefinition";
 
 interface YearSelectorProps {
   data: ResultsStructure;
+  currentYear?: number;
   onChanged?: (year: number) => void;
 }
 
@@ -16,7 +17,11 @@ export const YearSelector = (props: YearSelectorProps) => {
         {props.data.Years.slice() // Create a shallow copy to avoid mutating the original array
           .sort((a, b) => b.Year - a.Year) // Sort in descending order
           .map((val) => (
-            <option value={val.Year} key={"Sel" + val.Year}>
+            <option
+              value={val.Year}
+              key={"Sel" + val.Year}
+              selected={!!(props.currentYear && props.currentYear == val.Year)}
+            >
               {val.Year}
             </option>
           ))}

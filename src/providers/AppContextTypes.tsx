@@ -7,4 +7,6 @@ export type AppContextProviderProps = {
 
 export type AppContextValue = {
   store: DataStore | null;
+  currentYear?: number;
+  updateCurrentYear?: (year: number) => void;
 };
