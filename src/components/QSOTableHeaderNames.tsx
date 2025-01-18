@@ -6,6 +6,5 @@ export const QSOTableHeaderNames: string[] = [
   "Rcvd",
   "WWLoc",
   "Points",
-  "QRB",
   "Remark",
 ];

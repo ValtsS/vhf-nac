@@ -80,7 +80,6 @@ export const QSOLog = (props: QSOLogProps) => {
                   <td>{o.Recvd}</td>
                   <td>{o.nWWLoc}</td>
                   <td>{o.Pnt}</td>
-                  <td>{o.QRB}</td>
                   <td>{o.Remark}</td>
                 </tr>
               ))}
