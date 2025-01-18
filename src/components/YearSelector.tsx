@@ -13,15 +13,15 @@ export const YearSelector = (props: YearSelectorProps) => {
 
   return (
     <div>
-      <select name="yearSelector" onChange={onAddrChange}>
+      <select
+        name="yearSelector"
+        onChange={onAddrChange}
+        defaultValue={props.currentYear}
+      >
         {props.data.Years.slice() // Create a shallow copy to avoid mutating the original array
           .sort((a, b) => b.Year - a.Year) // Sort in descending order
           .map((val) => (
-            <option
-              value={val.Year}
-              key={"Sel" + val.Year}
-              selected={!!(props.currentYear && props.currentYear == val.Year)}
-            >
+            <option value={val.Year} key={"Sel" + val.Year}>
               {val.Year}
             </option>
           ))}
