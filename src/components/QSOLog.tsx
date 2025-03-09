@@ -56,6 +56,8 @@ export const QSOLog = (props: QSOLogProps) => {
       {log && log.length > 0 && (
         <>
           <p>QTH: {log[0].WWLoc}</p>
+          <p>Reported QSOs: {log.length}</p>
+          <p>Not accepted QSOs: {log.filter((val:QsoRecord) => val.Pnt == "0").length}</p>
           <table>
             <thead>
               <tr>
