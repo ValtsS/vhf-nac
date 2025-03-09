@@ -20,6 +20,8 @@ export const QSOLog = (props: QSOLogProps) => {
   const formattedMonth =
     numericMonth < 10 ? `0${numericMonth}` : `${numericMonth}`;
 
+  const WWLs = log ? new Set(log.map((x) => x.nWWLoc4)).size : 0;
+
   return (
     <>
       <h4>Band: {props.band} MHz</h4>
@@ -57,7 +59,11 @@ export const QSOLog = (props: QSOLogProps) => {
         <>
           <p>QTH: {log[0].WWLoc}</p>
           <p>Reported QSOs: {log.length}</p>
-          <p>Not accepted QSOs: {log.filter((val:QsoRecord) => val.Pnt == "0").length}</p>
+          <p>Reported WWLs: {WWLs}</p>
+          <p>
+            Not accepted QSOs:{" "}
+            {log.filter((val: QsoRecord) => val.Pnt == "0").length}
+          </p>
           <table>
             <thead>
               <tr>
