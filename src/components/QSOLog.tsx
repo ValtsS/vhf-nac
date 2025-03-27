@@ -21,8 +21,11 @@ export const QSOLog = (props: QSOLogProps) => {
     numericMonth < 10 ? `0${numericMonth}` : `${numericMonth}`;
 
   const WWLs = log
-    ? new Set(log.filter((val: QsoRecord) => val.nWWLoc4 && val.nWWLoc4.length > 0).map((x) => x.nWWLoc4))
-        .size
+    ? new Set(
+        log
+          .filter((val: QsoRecord) => val.nWWLoc4 && val.nWWLoc4.length > 0)
+          .map((x) => x.nWWLoc4),
+      ).size
     : 0;
 
   return (
