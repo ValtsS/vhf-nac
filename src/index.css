@@ -39,6 +39,14 @@ table td {
   text-align: center;
 }
 
+table th.active-sort {
+  background: #00660d;
+}
+
+table th.inactive-sort:hover {
+  text-decoration: underline;
+}
+
 table th {
   background-color: #004466; /* High contrast header */
   color: white;

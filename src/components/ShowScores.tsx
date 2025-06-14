@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { ScoreData } from "../core/resultsDefinition";
 import { TableHeaderNames } from "./TableHeaderNames";
+import { sortResults } from "./sortResults";
 
 interface ShowScoreProps {
   results: ScoreData[];
   showHeaders?: boolean;
+  onSortChange?: (key: number) => void;
+  sortOrder?: number;
 }
 
 interface OlinkProps {
@@ -29,23 +32,39 @@ export const Olink = (props: OlinkProps) => {
 };
 
 export const ShowScores = (props: ShowScoreProps) => {
+  const clicked = (key: number) => {
+    if (key >= 0 && key <= 14) {
+      if (props.onSortChange) props.onSortChange(key);
+    }
+  };
+
+  const data = sortResults(props.results, props.sortOrder);
+
   return (
     <table>
       {props.showHeaders && (
         <thead>
           <tr>
             {TableHeaderNames.map((text, i) => (
-              <th key={i + text}>{text}</th>
+              <th
+                key={i + text}
+                onClick={() => clicked(i)}
+                className={
+                  props.sortOrder === i ? "active-sort" : "inactive-sort"
+                }
+              >
+                {props.sortOrder === i ? <em>{text}</em> : text}
+              </th>
             ))}
           </tr>
         </thead>
       )}
       <tbody>
-        {props.results.map((o: ScoreData) => (
+        {data.map((o: ScoreData) => (
           <tr key={o.OperatorName}>
             <td>{o.OperatorName}</td>
             {o.Scores.map((n, i) => (
-              <td key={i}>
+              <td key={`${o.OperatorName}-${n.Score}-${i}`}>
                 <Olink link={n.Link} score={n.Score} />
               </td>
             ))}
