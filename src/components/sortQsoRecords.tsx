@@ -24,8 +24,17 @@ export function sortQsoRecords(data: QsoRecord[], key: number): QsoRecord[] {
   }
 
   return [...data].sort((a, b) => {
-    const valA = a[sortKey] || "";
-    const valB = b[sortKey] || "";
-    return valA.localeCompare(valB);
+    const valA = a[sortKey];
+    const valB = b[sortKey];
+
+    if (sortKey === "Pnt") {
+      // Convert to number for numeric comparison
+      const numA = parseFloat(valA) || 0;
+      const numB = parseFloat(valB) || 0;
+      return numB - numA;
+    }
+
+    // Default: string comparison
+    return (valA || "").localeCompare(valB || "");
   });
 }
