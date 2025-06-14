@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { QsoRecord } from "../core/resultsDefinition";
 import { QSOTableHeaderNames } from "./QSOTableHeaderNames";
-import { NavMonthLink } from "./NavMonthLink";
+import { QSOLogheader } from "./QSOLogheader";
+import { useState } from "react";
+import { sortQsoRecords } from "./sortQsoRecords";
 
 interface QSOLogProps {
   log?: QsoRecord[] | null;
@@ -12,14 +14,11 @@ interface QSOLogProps {
 }
 
 export const QSOLog = (props: QSOLogProps) => {
+  const [sortOrder, setSortOrder] = useState<number>(0);
+
+  const sortedLog = sortQsoRecords(props.log ?? [], sortOrder);
+
   const log = props.log;
-
-  const numericYear = +props.year;
-  const numericMonth = +props.month;
-
-  const formattedMonth =
-    numericMonth < 10 ? `0${numericMonth}` : `${numericMonth}`;
-
   const WWLs = log
     ? new Set(
         log
@@ -30,35 +29,12 @@ export const QSOLog = (props: QSOLogProps) => {
 
   return (
     <>
-      <h4>Band: {props.band} MHz</h4>
-      <h4>Callsign: {props.callSign}</h4>
-
-      <h4>
-        <span className="nav-link">
-          <NavMonthLink
-            year={numericYear}
-            month={numericMonth}
-            band={props.band}
-            callSign={props.callSign}
-            minYear={numericYear}
-            maxYear={numericYear}
-            direction="prev"
-          />
-        </span>
-        {`${props.year}.${formattedMonth}`}
-        <span className="nav-link">
-          <NavMonthLink
-            year={numericYear}
-            month={numericMonth}
-            band={props.band}
-            callSign={props.callSign}
-            minYear={numericYear}
-            maxYear={numericYear}
-            direction="next"
-          />
-        </span>
-      </h4>
-
+      <QSOLogheader
+        band={props.band}
+        callSign={props.callSign}
+        year={props.year}
+        month={props.month}
+      />
       {(!log || log.length == 0) && <>No log entries found</>}
 
       {log && log.length > 0 && (
@@ -74,12 +50,20 @@ export const QSOLog = (props: QSOLogProps) => {
             <thead>
               <tr>
                 {QSOTableHeaderNames.map((text, i) => (
-                  <th key={i + text}>{text}</th>
+                  <th
+                    key={i + text}
+                    onClick={() => setSortOrder(i)}
+                    className={
+                      sortOrder === i ? "active-sort" : "inactive-sort"
+                    }
+                  >
+                    {text}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {log.map((o: QsoRecord) => (
+              {sortedLog.map((o: QsoRecord) => (
                 <tr key={`${o.UTC}.${o.Corresp}`}>
                   <td>{o.UTC}</td>
                   <td>
