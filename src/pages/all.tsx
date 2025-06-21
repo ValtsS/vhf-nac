@@ -33,26 +33,20 @@ function All() {
 
   return (
     <>
-      <div>
-        <h1>NAC</h1>
-        {data && (
-          <YearSelector
-            data={data}
-            onChanged={yearSelected}
-            currentYear={currentYear}
-          />
-        )}
-        {data && (
-          <DataDisplay
-            yearResult={(data as ResultsStructure)?.Years.find(
-              (y) => y.Year == effectiveYear,
-            )}
-          />
-        )}
-      </div>
-      <div>
-        <Link to={`/about`}>About</Link>
-      </div>
+      {data && (
+        <YearSelector
+          data={data}
+          onChanged={yearSelected}
+          currentYear={currentYear}
+        />
+      )}
+      {data && (
+        <DataDisplay
+          yearResult={(data as ResultsStructure)?.Years.find(
+            (y) => y.Year == effectiveYear,
+          )}
+        />
+      )}
     </>
   );
 }
