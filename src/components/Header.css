@@ -1,0 +1,53 @@
+.app-header {
+  background-color: #004566;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Push logo left, bands right */
+  margin: 0;
+  width: 100%;
+  flex-wrap: wrap; /* Wrap on smaller screens */
+  gap: 0.5rem; /* spacing between wrapped lines */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.logo a {
+  font-size: 1.75rem;
+}
+
+.bands {
+  display: flex;
+  gap: 1.25rem; /* space between links */
+  flex-wrap: wrap; /* wrap links on smaller widths */
+}
+
+.band-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.band-link:hover {
+  background-color: #0074cc; /* subtle highlight on hover */
+  text-decoration: underline;
+}
+
+/* Responsive tweak for very small screens */
+@media (max-width: 400px) {
+  .app-header {
+    justify-content: center;
+  }
+
+  .bands {
+    justify-content: center;
+  }
+}

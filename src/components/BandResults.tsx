@@ -11,19 +11,21 @@ function BandResults({ data }: Readonly<{ data: BandResult }>) {
 
   return (
     <div>
-      <h4>{data.Band}</h4>
-      <ShowScores
-        results={data.LatvianData}
-        showHeaders={true}
-        sortOrder={sortOrder}
-        onSortChange={onSort}
-      />
-      <ShowScores
-        results={data.IntData}
-        showHeaders={true}
-        sortOrder={sortOrder}
-        onSortChange={onSort}
-      />
+      <section id={data.Band}>
+        <h4>{data.Band}</h4>
+        <ShowScores
+          results={data.LatvianData}
+          showHeaders={true}
+          sortOrder={sortOrder}
+          onSortChange={onSort}
+        />
+        <ShowScores
+          results={data.IntData}
+          showHeaders={true}
+          sortOrder={sortOrder}
+          onSortChange={onSort}
+        />
+      </section>
     </div>
   );
 }
