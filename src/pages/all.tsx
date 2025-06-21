@@ -5,7 +5,6 @@ import YearSelector from "../components/YearSelector";
 import { ResultsStructure } from "../core/resultsDefinition";
 import { useFetch } from "../hooks/useFetch";
 import { useAppContext } from "../providers/AppUseContext";
-import { Link } from "react-router-dom";
 
 function All() {
   const { store, currentYear, updateCurrentYear } = useAppContext();
