@@ -21,7 +21,7 @@ function BandResults({ data }: Readonly<{ data: BandResult }>) {
         />
         <ShowScores
           results={data.IntData}
-          showHeaders={true}
+          showHeaders={data.IntData.length > 0}
           sortOrder={sortOrder}
           onSortChange={onSort}
         />
