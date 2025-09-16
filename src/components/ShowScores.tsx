@@ -40,11 +40,14 @@ export const ShowScores = (props: ShowScoreProps) => {
 
   const data = sortResults(props.results, props.sortOrder);
 
+  var counter = 0;
+
   return (
     <table>
       {props.showHeaders && (
         <thead>
           <tr>
+            <th>#</th>
             {TableHeaderNames.map((text, i) => (
               <th
                 key={i + text}
@@ -62,6 +65,7 @@ export const ShowScores = (props: ShowScoreProps) => {
       <tbody>
         {data.map((o: ScoreData) => (
           <tr key={o.OperatorName}>
+            <td>{++counter}</td>
             <td>{o.OperatorName}</td>
             {o.Scores.map((n, i) => (
               <td key={`${o.OperatorName}-${n.Score}-${i}`}>
